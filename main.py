@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from bitwise_manipulations import *
+from math import isinf
 from helper import *
 import json
 
@@ -46,8 +47,7 @@ for subset in l:
 			cost[subset][dest] = a[0][dest]
 			#p[subset][dest] = 0
 		elif (not inSubset(0, subset)) and (not inSubset(dest, subset)) :
-			isSet = 0
-			mini = 0
+			mini = float("inf")
 			for i in range(n):
 				if inSubset(i, subset):
 					modifiedSubset = remove(i, subset)
@@ -57,17 +57,15 @@ for subset in l:
 					print("Val = %d" % (val))
 					print(mini)
 
-					if isSet == 0:
+					if val < mini:
 						mini = val
-						isSet = 1
-						p[subset][dest]=i
-					else:
-						if val<mini:
-							val= mini
-							p[subset][dest] = i
-					print(mini)
-			cost[subset][dest] = mini
-			print("Setting Value of %s, %d => %d" % (bin(subset), dest, mini))
+						p[subset][dest] = i
+					if not isinf(mini):
+						print("mini is %d"%(mini))
+			print(isinf(mini))
+			if not isinf(mini):
+				cost[subset][dest] = mini
+				print("Setting Value of %s, %d => %d" % (bin(subset), dest, mini))
 		pretty(cost)
 
 
