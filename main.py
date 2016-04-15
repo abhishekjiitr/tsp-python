@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+## GroupID-8 (14114002_14114068) - Abhishek Jaisingh & Tarun Kumar
+## Date: April 15, 2016
+## main.py - Main Travelling Salesman Algorithm
+
 from bitwise_manipulations import *
 from math import isinf
 from helper import *
@@ -7,7 +11,7 @@ import json, time
 
 choice = 2
 a = []
-random_size = 20
+random_size = 10
 def choose(n):
 	global a, random_size
 	if n == 1:
@@ -59,7 +63,7 @@ for subset in l:
 
 			if not isinf(mini):
 				cost[subset][dest] = mini
-	print("%d %%" % (count / total))
+	#print("%f %%" % (100.0*count / total))
 	count += 1
 path = findPath(p)
 t2 = time.time()
@@ -68,4 +72,4 @@ print(" => ".join(path))
 
 Cost = cost[2**n-2][0]
 print(Cost)
-print(diff * 1000)
+print("Time Taken: %f milliseconds" % (diff * 1000))

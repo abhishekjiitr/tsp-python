@@ -1,3 +1,7 @@
+## GroupID-8 (14114002_14114068) - Abhishek Jaisingh & Tarun Kumar
+## Date: April 15, 2016
+## helper.py - Helper functions for Travelling Salesman Problem
+
 from bitwise_manipulations import *
 import time
 import random, json
