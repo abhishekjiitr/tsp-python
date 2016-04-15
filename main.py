@@ -3,34 +3,33 @@
 from bitwise_manipulations import *
 from math import isinf
 from helper import *
-import json
+import json, time
 
-choice = 3
+choice = 2
 a = []
-
+random_size = 20
 def choose(n):
-	global a
+	global a, random_size
 	if n == 1:
 		a = getInputFromUser()
 	if n == 2:
-		a = generateGraph(4)
+		a = generateGraph(random_size)
 	if n == 3:
 		a = readFromFile()
 choose(choice)
 
-a = [
-		[0, 10, 15, 20],
-		[5, 0, 9, 10],
-		[6, 13, 0, 12],
-		[8, 8, 9, 0]
-]
+# a = [
+# 		[0, 10, 15, 20],
+# 		[5, 0, 9, 10],
+# 		[6, 13, 0, 12],
+# 		[8, 8, 9, 0]
+# ]
 
 n = len(a)
 
 def generateSubsets(n):
 	l = []
 	for i in range(2**n):
-		#print bin(i)
 		l.append(i)
 	return sorted(l, key = lambda x : size(x) )
 
@@ -39,10 +38,11 @@ cost = [ [-1 for city in range(n)] for subset in l]
 p = [ [-1 for city in range(n)] for subset in l]
 
 pretty(a)
-
+t1 = time.time()
+count = 1
+total = len(l)
 for subset in l:
 	for dest in range(n):
-		print("Subset: %s Dest: %d" % (bin(subset), dest))
 		if not size(subset):
 			cost[subset][dest] = a[0][dest]
 			#p[subset][dest] = 0
@@ -51,24 +51,21 @@ for subset in l:
 			for i in range(n):
 				if inSubset(i, subset):
 					modifiedSubset = remove(i, subset)
-					print("Subset is %d => Modified %d" % (subset, modifiedSubset))
 					val = a[i][dest] + cost[modifiedSubset][i]
-					print("i is %d a[i][dest] = %d cost = %d modifiedS = %d"%(i, a[i][dest], cost[modifiedSubset][i], modifiedSubset))
-					print("Val = %d" % (val))
-					print(mini)
-
+					
 					if val < mini:
 						mini = val
 						p[subset][dest] = i
-					if not isinf(mini):
-						print("mini is %d"%(mini))
-			print(isinf(mini))
+
 			if not isinf(mini):
 				cost[subset][dest] = mini
-				print("Setting Value of %s, %d => %d" % (bin(subset), dest, mini))
-		pretty(cost)
+	print("%d %%" % (count / total))
+	count += 1
+path = findPath(p)
+t2 = time.time()
+diff = t2 - t1
+print(" => ".join(path))
 
-
-# pretty(p)
-# findPath(p)
-pretty(cost)
+Cost = cost[2**n-2][0]
+print(Cost)
+print(diff * 1000)

@@ -23,10 +23,15 @@ def findPath(p):
 	n = len(p[0])
 	number = 2 ** n - 2
 	prev = p[number][0]
+	path = []
 	while prev != -1:
-		print(prev)
+		path.append(prev)
 		number = remove(prev, number)
 		prev = p[number][prev]
+	reversepath = [str(path[len(path)-i-1]+1) for i in range(len(path))]
+	reversepath.append("1")
+	reversepath.insert(0, "1")
+	return reversepath
 
 def pretty(a):
 	print("=========================")
@@ -61,3 +66,4 @@ def readFromFile():
 		s = f.read()
 		data  = json.loads(s)
 		print(data)
+		return data
