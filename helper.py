@@ -61,6 +61,7 @@ def generateGraph(n):
 
 def getInputFromUser():
 	n = int(input("Enter number of cities:"))
+	print("Enter the values like 1st row, 2nd row and so on.")
 	a = [[int(input()) for i in range(n)] for j in range(n)]
 	print(a)
 	return a
